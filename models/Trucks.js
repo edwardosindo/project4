@@ -1,20 +1,55 @@
+// const mongoose = require('mongoose');
+
+
+// const TrucksSchema = mongoose.Schema({
+//     Departure: String,
+//     Destination: String,
+//     Date: Date,
+//     Tons: String
+//     // Departure: {
+//     //     type: "String",
+//     //     required:true,
+//     //     trim:true
+//     // },
+//     // Destination: {
+//     //     type: "String",
+//     //     required: true,
+//     //     trim: true
+//     // },
+//     // Date: {
+//     //     type: "Date",
+//     //     required: true,
+//     //     default: Date.now,
+//     //     trim: true
+//     // },
+//     // Tons: {
+//     //     type: "Number",
+//     //     required: true,
+//     //     trim: true
+//     // }
+// });
+
+// const Trucks = mongoose.model('Trucks', TrucksSchema);
+
+// module.exports = Trucks;
+
+
 const mongoose = require('mongoose');
 
-
-const TrucksSchema = mongoose.Schema({
+const TrucksSchema = new mongoose.Schema({
     Departure: {
         type: String,
-        required:true,
-        trim:true
+        require: true,
+        trim: true
     },
     Destination: {
         type: String,
-        required: true,
+        require: true,
         trim: true
     },
     Date: {
         type: Date,
-        required: true,
+        require: true,
         default: Date.now,
         trim: true
     },
@@ -25,5 +60,8 @@ const TrucksSchema = mongoose.Schema({
     }
 });
 
-module.exports  = mongoose.model('Trucks', TrucksSchema);
+const Trucks = mongoose.model('Trucks', TrucksSchema);
+
+module.exports = Trucks;
+
 

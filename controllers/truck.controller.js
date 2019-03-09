@@ -5,21 +5,22 @@ const Truck = require('../models/Trucks.js');
 exports.create = (req, res) => {
 
     // Validate request
-    /*if(!req.body.content) {
-        return res.status(400).send({
+    // if(!req.body.content) {
+    //     return res.status(400).send({
             
-            message: "Truck content cannot be empty"
-        });
-    }*/
+    //         message: "Truck content cannot be empty"
+    //     });
+    // }
 
             // Create a truck
     const truck = new Truck({
         Departure: req.body.Departure,
-        Destination: req.body.Destinantion,
+        Destination: req.body.Destination,
         Date: req.body.Date,
         Tons: req.body.Tons
-
+    
     });
+
 
     //Save Truck in database
     truck.save()
@@ -78,11 +79,11 @@ exports.findOne = (req, res) => {
 // Update a truck identified by the truckId in the request
 exports.update = (req, res) => {
     // Validate Request
-    if(!req.body.content) {
-        return res.status(400).send({
-            message: "Truck content cannot be empty"
-        });
-    }
+    // if(!req.body.content) {
+    //     return res.status(400).send({
+    //         message: "Truck content cannot be empty"
+    //     });
+    // }
 
     // Find truck and update it with the request body
     Truck.findByIdAndUpdate(req.params.truckId, {
@@ -113,22 +114,22 @@ exports.update = (req, res) => {
 
 // Delete a truck with the specified truckId in the request
 exports.delete = (req, res) => {
-    Truck.findByIdAndRemove(req.params.noteId)
+    Truck.findByIdAndRemove(req.params.truckId)
     .then(truck => {
         if(!truck) {
-            return res.status(404).send({
-                message: "Truck not found with id " + req.params.noteId
+            return res.status(404, error).send({
+                message: "Truck not found with id " + req.params.truckId
             });
         }
         res.send({message: "Truck deleted successfully!"});
     }).catch(err => {
         if(err.kind === 'ObjectId' || err.name === 'NotFound') {
             return res.status(404).send({
-                message: "Truck not found with id " + req.params.noteId
+                message: "Truck not found with id " + req.params.truckId
             });                
         }
         return res.status(500).send({
-            message: "Could not delete truck with id " + req.params.noteId
+            message: "Could not delete truck with id " + req.params.truckId
         });
     });
 };
