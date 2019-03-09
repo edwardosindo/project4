@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
-const timestamp = require('mongoose-timestamp');
 
-const TrucksSchema = new mongoose.Schema({
+
+const TrucksSchema = mongoose.Schema({
     Departure: {
         type: String,
         required:true,
@@ -25,8 +25,5 @@ const TrucksSchema = new mongoose.Schema({
     }
 });
 
-TrucksSchema.plugin(timestamp);
+module.exports  = mongoose.model('Trucks', TrucksSchema);
 
-const Trucks = mongoose.model('Trucks', TrucksSchema);
-
-module.exports = Trucks;

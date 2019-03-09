@@ -12,6 +12,8 @@ const app = express();
 // Passport config
 require('./config/passport')(passport);
 
+
+
 // DB Config
 const db = require('./config/keys').MongoURI;   
 
@@ -26,6 +28,15 @@ app.set('view engine', 'ejs');
 
 //Bodyparser
 app.use(express.urlencoded({ extended: false}));
+
+
+//Enable CORS for all HTTP methods
+app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Methods", "GET, PUT, POST, DELETE, OPTIONS");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+  });
 
 // Express session
 app.use(session({
@@ -58,4 +69,4 @@ app.use('/trucks', require('./routes/trucks'));
 
 const PORT = process.env.PORT || 5000;
 
-app.listen(PORT, console.log('Server started on port: ${PORT}'));
+app.listen(PORT, console.log(`Server started on port: ${PORT}`));
