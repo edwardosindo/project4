@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const TrucksSchema = new mongoose.Schema({
+const LoadsSchema = new mongoose.Schema({
     Departure: {
         type: String,
         require: true,
@@ -24,8 +24,6 @@ const TrucksSchema = new mongoose.Schema({
     }
 });
 
-const Trucks = mongoose.model('Trucks', TrucksSchema);
+const Loads = mongoose.model('Loads', LoadsSchema);
 
-module.exports = Trucks;
-
-
+module.exports = Loads;
