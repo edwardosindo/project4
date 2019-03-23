@@ -1,18 +1,203 @@
+<head>
+<style>
+  #map{
+    height: 400px;
+    width: 100%;
+  }
+</style>
+</head>
+
 <h1 class="mt-4">Smart-Movers</h1>
-<p class="lead mb-3">Welcome to smart movers  <%= name %></p>    
-<div>
-    <ul class="nav nav-tabs">
-        <li class="nav-item">
-          <a class="nav-link active" href="#"><i class="fas fa-tachometer-alt"></i> </i>User Panel</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link active" href="#"><i class="fas fa-th-large"></i> Search freight</a>
-        </li>    
-        <li class="nav-item">
-          <a class="nav-link active" href="#"><i class="fas fa-truck"></i> Search Vehicle</a>
-        </li>    
-    </ul>
+<p class="lead mb-3">Welcome to smart movers  <%= name %></p><br>
+<ul class="nav nav-tabs">
+  <li class="nav-item">
+    <a class="nav-link active" data-toggle="tab" href="#userpanel"><i class="fas fa-tachometer-alt"></i>User panel</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" data-toggle="tab" href="#searchfreight"><i class="fas fa-th-large"></i> Search freight</a>
+  </li>
+  <li class="nav-item">
+      <a class="nav-link" data-toggle="tab" href="#searchvehicle"><i class="fas fa-truck"></i> Search Vehicle</a>
+    </li>
+
+</ul>
+<div id="myTabContent" class="tab-content">
+  <div class="tab-pane fade active show" id="userpanel">
+    <br>
+      <form action="/loads/loads" method="POST">
+        <body>
+            <br>
+          <div class="form-group row">
+              <label for="departure" class="col-sm-1 col-form-label">Departure:</label>
+              <div class="col-sm-4">
+                <input type="text" class="form-control" name="Departure" id="departure" placeholder="Departure" value="<%= typeof Departure != 'undefined' ? Departure : '' %>">
+              </div>
+            </div>
+            <div class="form-group row">
+                <label for="Destination" class="col-sm-1 col-form-label">Destination:</label>
+                <div class="col-sm-4">
+                  <input type="text" class="form-control" id="Destination" name="Destination" placeholder="Destination" value="<%= typeof Destination != 'undefined' ? Destination : '' %>">
+                </div>
+              </div>
+              <div class="form-group row">
+                  <label for="tons" class="col-sm-1 col-form-label">Tons:</label>
+                  <div class="col-sm-4">
+                    <input type="number" class="form-control" name="Tons" id="tons" placeholder="tons" value="<%= typeof Tons != 'undefined' ? Tons : '' %>">
+                  </div>
+                </div>
+                <div class="form-group row">
+                    <label for="contacts" class="col-sm-1 col-form-label">Contact:</label>
+                    <div class="col-sm-4">
+                      <input type="number" class="form-control" name="Contact" id="contacts" placeholder="contacts" value="<%= typeof Contact != 'undefined' ? Contact : '' %>">
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                      <label for="date" class="col-sm-1 col-form-label">Date</label>
+                      <div class="col-sm-4">
+                        <input type="date" class="form-control" name="Date" id="date" placeholder="Date" value="<%= typeof Date != 'undefined' ? Date : '' %>">
+                      </div>
+                    </div>
+                    <div class="form-group row col-sm-2">
+                        <button type="submit" class="btn btn-primary btn-block">
+                            Submit
+                          </button>
+                    </div>
+                    <div> 
+                      <a href="/users/logout" class="btn btn-secondary" class="btn btn-primary btn-block col-sm-2">Logout</a>
+                    </div> 
+
+          
+        </body>       
+      </form>
+  </div>
+  <div class="tab-pane fade" id="searchfreight">
+    <br>
+      <form action="/loads/loads/search" method="POST">
+        <body>
+            <h1>GoogleMap</h1>
+            <div id="map">
+            
+              </div>
+                <script>
+                    function initMap(){
+  
+                      //Map Options
+                      var options = {
+                        zoom:13,
+                        center:{lat:-1.2921, lng:36.8219}
+                      }
+  
+                      //New Map
+                      var map = new 
+                      google.maps.Map(document.getElementById('map'), options);
+  
+                     
+                      //Listen for click on map
+                      google.maps.event.addListener(map, 'click',
+                      function(event){
+                        //Add marker
+                        addMarker({coords:event.latLng});
+                      });
+                      
+                      //  //Add Marker
+                      //  var marker = new google.maps.Marker({
+                      //    position:{lat:-1.2, lng:36.8198},
+                      //    map:map,
+                      
+                      // });
+  
+                        //   var infoWindow = new google.maps.InfoWindow({
+                     //     content: '<h1>Kiambu<h1>'
+                     //   });
+                      
+                     //   marker.addListener('click', function(){
+                      //     infoWindow.open(map, marker);
+                      //   });
+                      
+                      // //Array of markers
+                      // var markers = [
+                      //   {
+                      //     coords:{ lat:-1.1668, lng:36.8198},
+                      //     content:'<h1>Kiambu</h1>'
+                      //   }
+  
+                      // ];
+  
+                      // //Loop through markers
+                      // for(var i= 0;i< markers.length;i++){
+                      //   //Add Marker
+                      //   addMarker(markers[i]);
+                      // }
+                       
+  
+                        // //Add Marker function
+                        // function addMarker(props){
+                      //   var marker = new google.maps.Marker({
+                      //   //  position:props.coords,
+                      //   position: (-1.2,36),
+                      //     map:map
+                      //   });
+  
+                      //   //Check for customicon
+                      //   if(props.iconImage){
+                      //     //Set icon image
+                      //     marker.setIcon(props.iconImage);
+                      //   }
+                        
+                      //   if(props.content){
+                      //     var infoWindow = new google.maps.InfoWindow({
+                      //       content:props.content
+                      //     });
+  
+                      //     marker.addListener('click', function(){
+                      //       infoWindow.open(map, marker);
+                      //     });
+                      //   }
+  
+                      // }
+  
+  
+  
+  
+                      // function loadinitial(){
+                      //   alert("running");
+                      //   var marker = new google.maps.Marker({
+              
+                      //   position: (-1.9,36.8198),
+                      //     map:map
+                      //   });
+                      // }
+                      // loadinitial();
+  
+  
+                    }
+                  </script>
+        
+                  <script async defer
+                    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAcLIN5HTUvsOSBRlQh3kjHKTnMGQdJYcM&callback=initMap">
+                  </script>
+            <br>
+            <div class="form-group row">
+            <label for="from" class="col-sm-0 col-form-label">From:</label>
+            <div class="col-sm-2">
+              <input type="text" class="form-control" name="Departure" id="from" placeholder="From" value="<%= typeof Departure != 'undefined' ? Departure : '' %>">
+            </div>
+            <label for="to" class="col-sm-0 col-form-label">To:</label>
+            <div class="col-sm-2">
+              <input type="text" class="form-control" name="Destination" id="to" placeholder="To" value="<%= typeof Destination != 'undefined' ? Destination : '' %>">
+            </div>
+            <button type="submit" class="btn btn-primary btn-block col-sm-2">
+                Search
+              </button>
+              <%= results %>
+          </div>
+         
+       
+        </body>
+ 
+      </form>
+  </div>
+  <div class="tab-pane fade" id="searchvehicle">
+    <p>Etsy mixtape wayfarers, ethical wes anderson tofu before they sold out mcsweeney's organic lomo retro fanny pack lo-fi farm-to-table readymade. Messenger bag gentrify pitchfork tattooed craft beer, iphone skateboard locavore carles etsy salvia banksy hoodie helvetica. DIY synth PBR banksy irony. Leggings gentrify squid 8-bit cred pitchfork.</p>
+  </div>
 </div>
-
-<div> <a href="/users/logout" class="btn btn-secondary">Logout</a></div>
-

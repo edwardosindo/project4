@@ -3,6 +3,7 @@ const Load = require('../models/Loads.js');
 
 // Create and Save a new Load
 exports.create = (req, res) => {
+    // console.log('req is:'+ JSON.stringify(req.body))
 
     // Validate request
     // if(!req.body.content) {
@@ -17,21 +18,28 @@ exports.create = (req, res) => {
         Departure: req.body.Departure,
         Destination: req.body.Destination,
         Date: req.body.Date,
-        Tons: req.body.Tons
+        Tons: req.body.Tons,
+        Contact: req.body.Contact
+
     
     });
 
 
     //Save Load in database
     load.save()
-    .then(data => {
-        res.send(data);
+    .then(data => { 
+        // res.send(data);
+        // res.flash('success_msg', 'You have successfull posted load.');
+        res.redirect('/dashboard');
+        return;
+        // successRedirect: '/dashboard'
     }). catch(err => {
-        res.status(500).send({
-        message: err.message || "some error occured while creating the Load"
+         res.status(500).send({
+                message: err.message || "some error occured while creating the Load"
+            });
         });
-    });
 
+    
 
 
 };
@@ -49,7 +57,23 @@ exports.findAll = (req, res) => {
     });
 };
 
-
+// Search for loads 
+exports.search = (req, res) => {
+    var db = req.db;
+    console.log(req.body);
+    var obj = {}
+    if(req.body.Departure) {
+        obj['Departure'] = req.body.Departure;
+    }
+    if(req.body.Destination) {
+        obj['Destination'] = req.body.Destination;
+    }
+    db.loads.find(obj, function(err, loads){
+        if (err) return err;
+        console.log(loads);
+        res.send(loads);
+    });
+};
 
 //Find a single Load with a loadId
 exports.findOne = (req, res) => {
@@ -66,6 +90,7 @@ exports.findOne = (req, res) => {
             return res.status(404).send({
                 message: " Load not found with id " + req.params.loadId
             });
+            
         };
         return res.status(500).send({
             message: "Error retrieving load with id" + req.params.loadId
@@ -134,3 +159,18 @@ exports.delete = (req, res) => {
     });
 };
 
+exports.search = (req, res) => {
+  
+    Load.find()
+    .then(load => {
+        var result = []
+        for(i=0; i<load.length; i++) {
+            if(load[i].Departure === req.body.Departure){
+                if(load[i].Destination === req.body.Destination){
+                    result.push(load[i])
+                }
+            }
+        }
+        res.send(result)
+    })
+}

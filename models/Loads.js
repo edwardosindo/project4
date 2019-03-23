@@ -3,21 +3,26 @@ const mongoose = require('mongoose');
 const LoadsSchema = new mongoose.Schema({
     Departure: {
         type: String,
-        require: true,
+        required: true,
         trim: true
     },
     Destination: {
         type: String,
-        require: true,
+        required: true,
         trim: true
     },
     Date: {
         type: Date,
-        require: true,
+        required: true,
         default: Date.now,
         trim: true
     },
     Tons: {
+        type: Number,
+        required: true,
+        trim: true
+    },
+    Contact: {
         type: Number,
         required: true,
         trim: true

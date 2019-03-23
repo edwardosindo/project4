@@ -9,7 +9,9 @@ const loads = require('../controllers/load.controller.js');
     // create a new load
     router.post('/loads', loads.create);
 
-    //Retrieve all load
+    router.post('/loads/search', loads.search);
+
+    //Retr.patch
     router.get('/loads', loads.findAll);
 
     //Retrieve a single Loads with loadId
@@ -20,7 +22,9 @@ const loads = require('../controllers/load.controller.js');
 
     //Delete a load with loadId
     router.delete('/loads/:loadId', loads.delete);
-
+    
+    //Search for loads
+    router.get('/search', loads.search);
 
 module.exports = router;
 
