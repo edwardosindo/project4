@@ -17,6 +17,11 @@ const LoadsSchema = new mongoose.Schema({
         default: Date.now,
         trim: true
     },
+    Location:{
+        type: String,
+        require: true,
+        trim: true
+    },
     Tons: {
         type: Number,
         required: true,

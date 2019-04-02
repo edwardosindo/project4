@@ -18,6 +18,7 @@ exports.create = (req, res) => {
         Departure: req.body.Departure,
         Destination: req.body.Destination,
         Date: req.body.Date,
+        Location: req.body.Location,
         Tons: req.body.Tons,
         Contact: req.body.Contact
 
@@ -30,7 +31,9 @@ exports.create = (req, res) => {
     .then(data => { 
         // res.send(data);
         // res.flash('success_msg', 'You have successfull posted load.');
+       
         res.redirect('/dashboard');
+        req.flash('success_msg','Loads are posted');
         return;
         // successRedirect: '/dashboard'
     }). catch(err => {
@@ -54,24 +57,6 @@ exports.findAll = (req, res) => {
         res.status(500).send({
             message: err.message || "some error occurred while retrieving Load."
         });
-    });
-};
-
-// Search for loads 
-exports.search = (req, res) => {
-    var db = req.db;
-    console.log(req.body);
-    var obj = {}
-    if(req.body.Departure) {
-        obj['Departure'] = req.body.Departure;
-    }
-    if(req.body.Destination) {
-        obj['Destination'] = req.body.Destination;
-    }
-    db.loads.find(obj, function(err, loads){
-        if (err) return err;
-        console.log(loads);
-        res.send(loads);
     });
 };
 
@@ -115,6 +100,7 @@ exports.update = (req, res) => {
         Destinantion: req.body.Destinantion,
         Departure: req.body.Departure,
         Date: req.body.Date,
+        Location: req.body.Location,
         Tons: req.body.Tons
     }, {new: true})
     .then(load => {
@@ -160,6 +146,7 @@ exports.delete = (req, res) => {
 };
 
 exports.search = (req, res) => {
+    
   
     Load.find()
     .then(load => {
@@ -171,6 +158,13 @@ exports.search = (req, res) => {
                 }
             }
         }
-        res.send(result)
+        // console.log(result);
+        //res.send({result:result})
+
+       res.render("dashboard",{result:result,name:'test'});
+       res.redirect('/dashboard');
+
+        return;
     })
 }
+

@@ -12,7 +12,7 @@ module.exports = function(passport) {
             User.findOne({ email: email})
             .then(user => {
                 if(!user) {  
-                    return done(null, false, { msg: 'That Email is not registered' });
+                    return done(null, false, { message: 'That Email is not registered' });
                     return;
                 }
 

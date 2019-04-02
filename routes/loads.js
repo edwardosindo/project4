@@ -23,8 +23,6 @@ const loads = require('../controllers/load.controller.js');
     //Delete a load with loadId
     router.delete('/loads/:loadId', loads.delete);
     
-    //Search for loads
-    router.get('/search', loads.search);
 
 module.exports = router;
 

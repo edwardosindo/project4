@@ -8,21 +8,21 @@
 </head>
 
 <h1 class="mt-4">Smart-Movers</h1>
-<p class="lead mb-3">Welcome to smart movers  <%= name %></p><br>
+<p class="lead mb-3">Welcome to smart movers </p><br>
 <ul class="nav nav-tabs">
   <li class="nav-item">
-    <a class="nav-link active" data-toggle="tab" href="#userpanel"><i class="fas fa-tachometer-alt"></i>User panel</a>
+    <a class="nav-link active" data-toggle="tab" href="#loads"><i class="fas fa-th-large"></i> Loads</a>
   </li>
   <li class="nav-item">
-    <a class="nav-link" data-toggle="tab" href="#searchfreight"><i class="fas fa-th-large"></i> Search freight</a>
+    <a class="nav-link" data-toggle="tab" href="#trucks"><i class="fas fa-truck"></i> Trucks </a>
   </li>
   <li class="nav-item">
-      <a class="nav-link" data-toggle="tab" href="#searchvehicle"><i class="fas fa-truck"></i> Search Vehicle</a>
+      <a class="nav-link" data-toggle="tab" href="#userpanel"><i class="fas fa-tachometer-alt"></i> User Panel</a>
     </li>
 
 </ul>
 <div id="myTabContent" class="tab-content">
-  <div class="tab-pane fade active show" id="userpanel">
+  <div class="tab-pane fade active show" id="loads">
     <br>
       <form action="/loads/loads" method="POST">
         <body>
@@ -37,6 +37,12 @@
                 <label for="Destination" class="col-sm-1 col-form-label">Destination:</label>
                 <div class="col-sm-4">
                   <input type="text" class="form-control" id="Destination" name="Destination" placeholder="Destination" value="<%= typeof Destination != 'undefined' ? Destination : '' %>">
+                </div>
+              </div>
+              <div class="form-group row">
+                <label for="Location" class="col-sm-1 col-form-label">Location:</label>
+                <div class="col-sm-4">
+                  <input type="text" class="form-control" id="Location" name="Location" placeholder="Location" value="<%= typeof Location != 'undefined' ? Location : '' %>">
                 </div>
               </div>
               <div class="form-group row">
@@ -70,7 +76,7 @@
         </body>       
       </form>
   </div>
-  <div class="tab-pane fade" id="searchfreight">
+  <div class="tab-pane fade" id="trucks">
     <br>
       <form action="/loads/loads/search" method="POST">
         <body>
@@ -98,77 +104,6 @@
                         //Add marker
                         addMarker({coords:event.latLng});
                       });
-                      
-                      //  //Add Marker
-                      //  var marker = new google.maps.Marker({
-                      //    position:{lat:-1.2, lng:36.8198},
-                      //    map:map,
-                      
-                      // });
-  
-                        //   var infoWindow = new google.maps.InfoWindow({
-                     //     content: '<h1>Kiambu<h1>'
-                     //   });
-                      
-                     //   marker.addListener('click', function(){
-                      //     infoWindow.open(map, marker);
-                      //   });
-                      
-                      // //Array of markers
-                      // var markers = [
-                      //   {
-                      //     coords:{ lat:-1.1668, lng:36.8198},
-                      //     content:'<h1>Kiambu</h1>'
-                      //   }
-  
-                      // ];
-  
-                      // //Loop through markers
-                      // for(var i= 0;i< markers.length;i++){
-                      //   //Add Marker
-                      //   addMarker(markers[i]);
-                      // }
-                       
-  
-                        // //Add Marker function
-                        // function addMarker(props){
-                      //   var marker = new google.maps.Marker({
-                      //   //  position:props.coords,
-                      //   position: (-1.2,36),
-                      //     map:map
-                      //   });
-  
-                      //   //Check for customicon
-                      //   if(props.iconImage){
-                      //     //Set icon image
-                      //     marker.setIcon(props.iconImage);
-                      //   }
-                        
-                      //   if(props.content){
-                      //     var infoWindow = new google.maps.InfoWindow({
-                      //       content:props.content
-                      //     });
-  
-                      //     marker.addListener('click', function(){
-                      //       infoWindow.open(map, marker);
-                      //     });
-                      //   }
-  
-                      // }
-  
-  
-  
-  
-                      // function loadinitial(){
-                      //   alert("running");
-                      //   var marker = new google.maps.Marker({
-              
-                      //   position: (-1.9,36.8198),
-                      //     map:map
-                      //   });
-                      // }
-                      // loadinitial();
-  
   
                     }
                   </script>
@@ -189,7 +124,37 @@
             <button type="submit" class="btn btn-primary btn-block col-sm-2">
                 Search
               </button>
-              <%= results %>
+          </div>
+          <div class="timeline-time">
+              <br>
+              <h3>Loads Available: </h3>
+              <br>
+              <p>
+              <table style="width:100%">
+                  <thead colspan="2">
+                      <tr class="timeline-yellow">
+                      <td><b>Departure</b></td>
+                      <td><b>Destination</b></td>
+                      <td><b>Location</b></td>
+                      <td><b>Tons</b></td>
+                      <td><b>Contact</b></td>
+                      </tr>
+                
+                    </thead>
+                <% for(var i=0; i< result.length; i++) {%>
+                  <tr>
+                      <td><%= result[i].Departure %></td>
+                      <td><%= result[i].Destination %></td>
+                      <td><%= result[i].Location %></td>
+                      <td><%= result[i].Tons %></td>
+                      <td><%= result[i].Contact %></td>
+                    
+                  <%} %>
+                  </tr>
+    
+              </ol>
+              </table>
+            </p>
           </div>
          
        
@@ -197,7 +162,7 @@
  
       </form>
   </div>
-  <div class="tab-pane fade" id="searchvehicle">
-    <p>Etsy mixtape wayfarers, ethical wes anderson tofu before they sold out mcsweeney's organic lomo retro fanny pack lo-fi farm-to-table readymade. Messenger bag gentrify pitchfork tattooed craft beer, iphone skateboard locavore carles etsy salvia banksy hoodie helvetica. DIY synth PBR banksy irony. Leggings gentrify squid 8-bit cred pitchfork.</p>
+  <div class="tab-pane fade" id="userpanel">
+<p>You can edit your loads here</p>
   </div>
 </div>
