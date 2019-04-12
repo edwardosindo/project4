@@ -1,0 +1,69 @@
+<div class="row mt-5">
+    <div class="col-md-6 m-auto">
+        <div class="card card-body">
+           <h1 class="text-center mb-3"><i class="fas fa-sign-in-alt"></i>  Login</h1>
+           <%= JSON.stringify(data)%>
+           <div class="tab-pane fade active show" id="loads">
+              <br>
+              <form name="loadsData" action="/loads/loads" method="POST">
+                <body>
+                    <br>
+                  <div class="form-group row">
+                      <label for="departure" class="col-sm-1 col-form-label">Departure:</label>
+                      
+                    </div>
+                    <div class="form-group row">
+                        <label for="Destination" class="col-sm-1 col-form-label">Destination:</label>
+                      
+                      </div>
+                      <div class="form-group row">
+                        <label for="Location" class="col-sm-1 col-form-label">Location:</label>
+                       
+                      </div>
+                      <div class="form-group row">
+                          <label for="tons" class="col-sm-1 col-form-label">Tons:</label>
+                         
+                        </div>
+                        <div class="form-group row">
+                            <label for="contacts" class="col-sm-1 col-form-label">Contact:</label>
+                           
+                          </div>
+                          <div class="form-group row">
+                              <label for="date" class="col-sm-1 col-form-label">Date</label>
+                              <div class="col-sm-4">
+                                <input onkeyup="checkform()" type="date" class="form-control" name="Date" id="date" placeholder="Date" value="<%= typeof Date != 'undefined' ? Date : '' %>">
+                              </div>
+                            </div>
+                            <div class="form-group row col-sm-2">
+                                <input type="submit"  id="loadsform"  value="Submit" disabled="disabled"/>
+                                <script>
+                                  function checkform()
+                                    {
+                                  var f = document.forms["loadsData"].elements;
+                                  var cansubmit = true;
+    
+                                  for (var i = 0; i < f.length; i++) {
+                                      if (f[i].value.length == 0) cansubmit = false;
+                                  }
+    
+                                  if (cansubmit) {
+                                      document.getElementById('loadsform').disabled = false;
+                                  }
+                              }
+                                </script>
+                            </div>
+                            <div> 
+                              <a href="/users/logout" class="btn btn-secondary" class="btn btn-primary btn-block col-sm-2">Logout</a>
+                            </div> 
+                            
+        
+                  
+                </body>       
+              </form>
+            <p class="lead mt-4">
+              No Account? <a href="/users/register">Register</a>
+            </p>
+        </div>
+    </div>
+ </div>
+      

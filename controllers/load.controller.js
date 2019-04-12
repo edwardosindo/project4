@@ -97,7 +97,7 @@ exports.update = (req, res) => {
 
     // Find load and update it with the request body
     Load.findByIdAndUpdate(req.params.loadId, {
-        Destinantion: req.body.Destinantion,
+        Destination: req.body.Destination,
         Departure: req.body.Departure,
         Date: req.body.Date,
         Location: req.body.Location,
@@ -147,7 +147,7 @@ exports.delete = (req, res) => {
 
 exports.search = (req, res) => {
     
-  
+  console.log('reached loads',JSON.stringify(req.body))
     Load.find()
     .then(load => {
         var result = []
@@ -158,11 +158,11 @@ exports.search = (req, res) => {
                 }
             }
         }
-        // console.log(result);
+        //console.log('resuts',JSON.stringify(result));
         //res.send({result:result})
 
        res.render("dashboard",{result:result,name:'test'});
-       res.redirect('/dashboard');
+       //res.redirect('/dashboard');
 
         return;
     })

@@ -24,5 +24,10 @@ router.get('/loads/loads/search', (req, res) => res.render('dashboard', {
 
 }));
 
+router.get('/update', (req, res) => res.render('update', {
+    data: data,
+    
+}))
+
 
 module.exports = router;
