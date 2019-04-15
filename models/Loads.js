@@ -23,12 +23,12 @@ const LoadsSchema = new mongoose.Schema({
         trim: true
     },
     Tons: {
-        type: Number,
+        type: String,
         required: true,
         trim: true
     },
     Contact: {
-        type: Number,
+        type: String,
         required: true,
         trim: true
     }
